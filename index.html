@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share to Unlock</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #progress-container {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 20px;
+            margin: 20px auto;
+            padding: 5px;
+        }
+
+        #progress-bar {
+            width: 0%;
+            height: 30px;
+            background-color: #4caf50;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            line-height: 30px;
+            font-weight: bold;
+        }
+
+        #shareButton {
+            padding: 10px 20px;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        #shareButton:hover {
+            background-color: #1da851;
+        }
+
+        #hiddenLink {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #hiddenLink a {
+            font-size: 18px;
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        #hiddenLink a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Share to Unlock the PW Batches Acess</h1>
+
+    <div id="progress-container">
+        <div id="progress-bar">0%</div>
+    </div>
+
+    <button id="shareButton">Share on WhatsApp</button>
+
+    <div id="hiddenLink">
+        <p>You've unlocked the link! Click below:</p>
+        <a href="https://example.com" target="_blank">Go to App Download Page</a>
+    </div>
+
+    <script>
+        let shareCount = 0;
+        const maxShares = 3;
+
+        document.getElementById('shareButton').addEventListener('click', function() {
+            const message = encodeURIComponent('Check out this awesome app! It Has All PW Batches Download it here: https://example.com');
+            const whatsappURL = `https://wa.me/?text=${message}`;
+
+            // Open WhatsApp share window
+            window.open(whatsappURL);
+
+            // Increase share count and update progress bar
+            shareCount++;
+            updateProgressBar();
+        });
+
+        function updateProgressBar() {
+            const progressBar = document.getElementById('progress-bar');
+            const percentage = (shareCount / maxShares) * 100;
+
+            if (percentage <= 100) {
+                progressBar.style.width = percentage + '%';
+                progressBar.textContent = Math.round(percentage) + '%';
+            }
+
+            // Unlock the hidden link when progress bar is full
+            if (percentage === 100) {
+                document.getElementById('hiddenLink').style.display = 'block';
+            }
+        }
+    </script>
+
+</body>
+</html>
